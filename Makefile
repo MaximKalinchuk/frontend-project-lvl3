@@ -6,3 +6,6 @@ lint:
 
 publish:
 		npm publish --dry-run
+
+start:
+		npx webpack serve
