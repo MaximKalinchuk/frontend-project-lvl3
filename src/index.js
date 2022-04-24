@@ -1,4 +1,3 @@
-// import valid from './View.js';
 import './style.css';
 import valid from './valid.js';
 
