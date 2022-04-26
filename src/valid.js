@@ -30,7 +30,7 @@ const valid = async (url) => {
     state.errors = false;
   }
 
-  console.log(state);
+  console.log('STATE:', state);
 };
 
 export default valid;
