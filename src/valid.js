@@ -1,14 +1,20 @@
-import { object, string } from 'yup';
+import { string } from 'yup';
 
 // Валидатор
-const validate = async (url) => { // state не нужен
-  const userSchema = object({ url: string().url().nullable() });
+const validate = (url, links) => { // state не нужен
+  const urlSchema = string(url).url().nullable().notOneOf(links);
 
   try {
-    await userSchema.validate(url);
-    return true;
+    urlSchema.validateSync(url);
+    return null;
   } catch (error) {
-    return false;
+    if (error.type === 'notOneOf') {
+      return 'notOneOf';
+    }
+    if (error.type === 'url') {
+      return 'url';
+    }
+    return error;
   }
 };
 
