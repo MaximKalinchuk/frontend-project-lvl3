@@ -113,7 +113,7 @@ export default (state) => {
 
         // меняем задний фон
         const body = document.querySelector('body');
-        body.setAttribute('style', 'overflow: hidden; padding-right: 15px;');
+        body.setAttribute('style', 'overflow: hidden;');
         const divModalBackdrop = document.createElement('div');
         divModalBackdrop.classList.add('modal-backdrop', 'fade', 'show');
         body.append(divModalBackdrop);
