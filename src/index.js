@@ -42,7 +42,7 @@ form.addEventListener('submit', (event) => {
 
   // делаем запрос и добавляем данные в state
   if (state.form.valid) {
-    axios.get(`http://localhost:1458/get?url=${encodeURIComponent(value.url)}`)
+    axios.get(`https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(value.url)}`)
       .then((response) => {
         if (response.status === 200) return response.data;
         throw new Error('Network response was not ok.');
@@ -60,16 +60,18 @@ form.addEventListener('submit', (event) => {
           feedTitle, feedDescription,
         });
 
-        const itemsList = data.querySelectorAll('item');
+        const itemsList = Array.from(data.querySelectorAll('item'));
         // в массив объектов map
-        itemsList.forEach((item) => {
+        const postsList = itemsList.reduce((acc, item) => {
           const title = item.querySelector('title').textContent;
           const description = item.querySelector('description').textContent;
           const link = item.querySelector('link').textContent;
-          watchedState.posts.unshift({
+          acc.push({
             title, description, link,
           });
-        });
+          return acc;
+        }, []);
+        watchedState.posts = [...postsList, ...watchedState.posts];
       });
   }
   // получаем список ошибок, если ошибки есть = добавляем их в state. Если ошибок нет
@@ -77,4 +79,5 @@ form.addEventListener('submit', (event) => {
   textContent.focus();
   form.reset();
 });
+
 // https://aussiedlerbote.de/rss;

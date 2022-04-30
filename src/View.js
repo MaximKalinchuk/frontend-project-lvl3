@@ -61,7 +61,6 @@ export default (state) => {
     const listGroup = document.querySelector('.list-group');
     let dataId = 1;
     state.posts.forEach((post) => {
-      // eslint-disable-next-line no-unused-vars
       const { title, description, link } = post;
       const li = document.createElement('li');
       li.classList.add('list-group-item');
@@ -92,16 +91,49 @@ export default (state) => {
       li.append(a);
       li.append(button);
       listGroup.append(li);
+      // Вешаем обработчик на кнопки
+      button.addEventListener('click', () => {
+        // врубаем модальное окно
+        const modal = document.querySelector('.modal');
+        const modalTitle = modal.querySelector('.modal-title');
+        modalTitle.textContent = title;
+
+        const modalBody = modal.querySelector('.modal-body');
+        modalBody.innerHTML = `<p>${description}</p>`;
+
+        modal.classList.add('show');
+        modal.setAttribute('style', 'display: block;');
+        modal.removeAttribute('aria-hidden');
+        modal.setAttribute('aria-modal', 'true');
+
+        const modalFooter = modal.querySelector('.modal-footer');
+        const href = modalFooter.querySelector('a');
+        href.removeAttribute('href');
+        href.setAttribute('href', link);
+
+        // меняем задний фон
+        const body = document.querySelector('body');
+        body.setAttribute('style', 'overflow: hidden; padding-right: 15px;');
+        const divModalBackdrop = document.createElement('div');
+        divModalBackdrop.classList.add('modal-backdrop', 'fade', 'show');
+        body.append(divModalBackdrop);
+
+        // вырубаем модальное окно
+        const close = Array.from(modal.querySelectorAll('[data-bs-dismiss="modal"]'));
+        console.log(close);
+        close.forEach((item) => {
+          item.addEventListener('click', () => {
+            body.removeAttribute('style');
+            modal.classList.remove('show');
+            modal.setAttribute('style', 'display: none;');
+            modal.removeAttribute('aria-modal');
+            modal.setAttribute('aria-hidden', 'true');
+            modalBody.innerHTML = '';
+            body.removeChild(divModalBackdrop);
+          });
+        });
+        console.log(modal);
+      });
     });
   }
-
-  //   // Вешаем на кнопки обработчики
-  //   // const allPostButtons = Array.from(listGroup.querySelectorAll('button'));
-  //   // allPostButtons.forEach((button) => {
-  //   //   button.addEventListener('click', (event) => {
-
-  //   //   });
-  //   // });
-  //   // console.log(allPostButtons);
-  // });
 };
