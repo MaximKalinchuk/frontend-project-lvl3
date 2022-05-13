@@ -60,7 +60,6 @@ export default (state) => {
     <h2 class="card-title h4">Посты</h2></div>
     <ul class="list-group border-0 rounded-0"></ul></div>`;
     const listGroup = document.querySelector('.list-group');
-    let dataId = 1;
     state.posts.forEach((post) => {
       const {
         title, description, link, id,
@@ -86,7 +85,7 @@ export default (state) => {
         a.classList.add('fw-bold');
       }
 
-      a.setAttribute('data-id', dataId);
+      a.setAttribute('data-id', id);
       a.setAttribute('target', 'blank');
       a.setAttribute('rel', 'noopener noreferrer');
       a.textContent = title;
@@ -95,8 +94,7 @@ export default (state) => {
       button.classList.add('btn');
       button.classList.add('btn-outline-primary');
       button.classList.add('btn-sm');
-      button.setAttribute('data-id', dataId); // ????
-      dataId += 1;
+      button.setAttribute('data-id', id);
       button.setAttribute('data-bs-toggle', 'modal');
       button.setAttribute('data-bs-target', '#modal');
       button.textContent = 'Просмотр';
