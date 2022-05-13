@@ -1,6 +1,7 @@
 import i18next from './locales/ru.js';
 
 export default (state) => {
+  // console.log(state.posts);
   // отображение валидации
   const feedback = document.querySelector('.feedback');
   const input = document.querySelector('input');
@@ -61,7 +62,9 @@ export default (state) => {
     const listGroup = document.querySelector('.list-group');
     let dataId = 1;
     state.posts.forEach((post) => {
-      const { title, description, link } = post;
+      const {
+        title, description, link, id,
+      } = post;
       const li = document.createElement('li');
       li.classList.add('list-group-item');
       li.classList.add('d-flex');
@@ -72,7 +75,17 @@ export default (state) => {
 
       const a = document.createElement('a');
       a.setAttribute('href', link);
-      a.classList.add('fw-bold');
+
+      const { postChecked } = state.uiState;
+      // console.log('postChecked', postChecked);
+      // console.log(id);
+      // console.log(state.uiState.postChecked)
+      if (postChecked.has(id)) {
+        a.classList.add('fw-normal');
+      } else {
+        a.classList.add('fw-bold');
+      }
+
       a.setAttribute('data-id', dataId);
       a.setAttribute('target', 'blank');
       a.setAttribute('rel', 'noopener noreferrer');
@@ -101,38 +114,10 @@ export default (state) => {
         const modalBody = modal.querySelector('.modal-body');
         modalBody.innerHTML = `<p>${description}</p>`;
 
-        // modal.classList.add('show');
-        // modal.setAttribute('style', 'display: block;');
-        // modal.removeAttribute('aria-hidden');
-        // modal.setAttribute('aria-modal', 'true');
-
         const modalFooter = modal.querySelector('.modal-footer');
         const href = modalFooter.querySelector('a');
         href.removeAttribute('href');
         href.setAttribute('href', link);
-
-        // меняем задний фон
-        // const body = document.querySelector('body');
-        // body.setAttribute('style', 'overflow: hidden;');
-        // const divModalBackdrop = document.createElement('div');
-        // divModalBackdrop.classList.add('modal-backdrop', 'fade', 'show');
-        // body.append(divModalBackdrop);
-
-        // вырубаем модальное окно
-        // const close = Array.from(modal.querySelectorAll('[data-bs-dismiss="modal"]'));
-        // console.log(close);
-        // close.forEach((item) => {
-        //   item.addEventListener('click', () => {
-        //     body.removeAttribute('style');
-        //     modal.classList.remove('show');
-        //     modal.setAttribute('style', 'display: none;');
-        //     modal.removeAttribute('aria-modal');
-        //     modal.setAttribute('aria-hidden', 'true');
-        //     modalBody.innerHTML = '';
-        //     // body.removeChild(divModalBackdrop);
-        //   });
-        // });
-        console.log(modal);
       });
     });
   }
