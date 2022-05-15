@@ -11,7 +11,7 @@
 
 - `перейти по адресу: http://localhost:8080/` - можно пользоваться!)
 ## [Перейти на сайт сервиса]( https://rss-project-eta.vercel.app/)
-<img src="https://i.ibb.co/TWwtg68/Screenshot-from-2022-05-15-14-18-51.png" alt="drawing" width="700"/>
+<img src="https://i.ibb.co/TWwtg68/Screenshot-from-2022-05-15-14-18-51.png" alt="drawing" width="900"/>
 
 ### Примичание: Иногда, All Origins – прокси, с помощью которого можно качать потоки, могут не работать, это связано с проблемами сервиса.
 ### В таком случае придётся подождать, пока прокси сново не заработают. Удачи!
